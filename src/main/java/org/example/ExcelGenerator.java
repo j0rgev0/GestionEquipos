@@ -21,7 +21,7 @@ public class ExcelGenerator {
         }
 
         String dest = "Reports/teams_report.xlsx";
-        String tempDest = "Reports/temp_teams_report.xlsx"; // Archivo temporal
+        String tempDest = "Reports/temp_teams_report.xlsx";
 
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Teams Report");
@@ -84,12 +84,12 @@ public class ExcelGenerator {
                 rowNum++;
             }
 
-            // Guardar en archivo temporal
+
             try (FileOutputStream fileOut = new FileOutputStream(tempDest)) {
                 workbook.write(fileOut);
             }
 
-            // Intentar reemplazar el archivo original con el temporal
+
             if (replaceFile(tempDest, dest)) {
                 System.out.println("Excel generado en: " + new File(dest).getAbsolutePath());
             } else {
