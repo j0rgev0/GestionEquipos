@@ -8,7 +8,16 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-
+/**
+ * Panel que muestra una tabla de jugadores y permite realizar acciones como agregar, editar, eliminar
+ * y buscar jugadores en función de su nombre o posición.
+ * Esta clase gestiona la visualización de jugadores y la interacción con la base de datos de jugadores.
+ *
+ * @author Jorge
+ * @version 1.0
+ * @since 2025-02-05
+ *
+ */
 public class PlayerTable extends JPanel {
 
     PlayerDAO playerDAO;
@@ -17,6 +26,11 @@ public class PlayerTable extends JPanel {
     DefaultTableModel tableModel = new DefaultTableModel();
     JTable table = new JTable(tableModel);
 
+    /**
+     * Constructor que configura el panel con la tabla de jugadores, filtros de búsqueda y botones de acción.
+     *
+     * @param playerDAO Objeto para interactuar con la base de datos de jugadores.
+     */
     public PlayerTable(PlayerDAO playerDAO) {
 
         this.playerDAO = playerDAO;
@@ -137,7 +151,11 @@ public class PlayerTable extends JPanel {
         add(panelSouth,BorderLayout.SOUTH);
 
     }
-
+    /**
+     * Elimina un jugador seleccionado de la tabla.
+     * Si no se selecciona un jugador, muestra un mensaje de advertencia.
+     *
+     */
     public void deletePlayer(){
 
         int selectedRow = table.getSelectedRow();
@@ -152,6 +170,10 @@ public class PlayerTable extends JPanel {
         }
     }
 
+    /**
+     * Permite editar un jugador seleccionado en la tabla.
+     * Si no se selecciona un jugador, muestra un mensaje de advertencia.
+     */
     public void editPlayer() {
 
         int selectedRow = table.getSelectedRow();
@@ -254,6 +276,13 @@ public class PlayerTable extends JPanel {
         }
     }
 
+    /**
+     * Completa la tabla con los jugadores filtrados según el parámetro de búsqueda.
+     *
+     * @param f Filtro por el cual se busca (nombre o posición).
+     * @param n Valor a buscar.
+     */
+
     public void completeFilter(String f, String n){
         tableModel.setRowCount(0);
         for(Player p : playerDAO.searchPlayer(f,n) ) {
@@ -267,6 +296,10 @@ public class PlayerTable extends JPanel {
         }
     }
 
+
+    /**
+     * Completa la tabla con todos los jugadores disponibles en la base de datos.
+     */
     public void completePlayerTable(){
 
         tableModel.setRowCount(0);
@@ -283,6 +316,9 @@ public class PlayerTable extends JPanel {
     }
 
 
+    /**
+     * Permite agregar un nuevo jugador a la base de datos.
+     */
     public void addPlayer() {
 
         JPanel panel = new JPanel(new BorderLayout());

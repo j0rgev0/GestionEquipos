@@ -11,6 +11,17 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 
+
+/**
+ * Clase que gestiona la interfaz gráfica para mostrar y administrar equipos y jugadores.
+ * Permite realizar operaciones de búsqueda, edición, eliminación y adición de equipos,
+ * así como visualizar los jugadores asociados a un equipo seleccionado.
+ *
+ * @author Jorge
+ * @version 1.0
+ * @since 2025-02-05
+ */
+
 public class TeamTable extends JPanel {
 
     PlayerDAO playerDAO;
@@ -22,6 +33,14 @@ public class TeamTable extends JPanel {
     DefaultTableModel playerTableModel = new DefaultTableModel();
     JTable playerTable = new JTable(playerTableModel);
 
+
+    /**
+     * Constructor de la clase {@link TeamTable}.
+     * Inicializa los componentes gráficos y establece las operaciones de los botones.
+     *
+     * @param teamDAO El objeto DAO para gestionar las operaciones de equipos.
+     * @param playerDAO El objeto DAO para gestionar las operaciones de jugadores.
+     */
     public TeamTable (TeamDAO teamDAO,PlayerDAO playerDAO) {
         this.playerDAO = playerDAO;
         this.teamDAO = teamDAO;
@@ -188,6 +207,12 @@ public class TeamTable extends JPanel {
         add(panelWest,BorderLayout.WEST);
     }
 
+    /**
+     * Filtra y actualiza la tabla de equipos según el filtro y valor proporcionados.
+     *
+     * @param f El nombre del campo por el que se filtra (por ejemplo, "nombre", "ciudad", "estadio").
+     * @param n El valor a buscar en el campo especificado.
+     */
     public void completeFilter(String f, String n){
         tableModel.setRowCount(0);
         for(Team t : teamDAO.searchPlayer(f,n) ) {
@@ -201,6 +226,9 @@ public class TeamTable extends JPanel {
         }
     }
 
+    /**
+     * Rellena la tabla de equipos con todos los equipos existentes.
+     */
     public void completeTeamTable(){
 
         tableModel.setRowCount(0);
@@ -215,6 +243,11 @@ public class TeamTable extends JPanel {
         }
     }
 
+    /**
+     * Rellena la tabla de jugadores con los jugadores del equipo seleccionado.
+     *
+     * @param teamId El identificador del equipo cuyo jugadores se deben mostrar.
+     */
     public void completePlayerTable(int teamId) {
         playerTableModel.setRowCount(0);
         for (Player p : playerDAO.getPlayersByTeam(teamId)) {
@@ -222,6 +255,9 @@ public class TeamTable extends JPanel {
         }
     }
 
+    /**
+     * Elimina el equipo seleccionado de la base de datos.
+     */
     public void deleteTeam(){
 
         int selectedRow = table.getSelectedRow();
@@ -236,6 +272,9 @@ public class TeamTable extends JPanel {
         }
     }
 
+    /**
+     * Abre un diálogo para editar los detalles del equipo seleccionado.
+     */
     public void editTeam(){
 
         int selectedRow = table.getSelectedRow();
@@ -315,6 +354,10 @@ public class TeamTable extends JPanel {
 
 
     }
+
+    /**
+     * Abre un diálogo para agregar un nuevo equipo a la base de datos.
+     */
 
     public void addTeam() {
 

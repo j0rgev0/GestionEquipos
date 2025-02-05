@@ -9,7 +9,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-    public class PDFGenerator {
+/**
+ * Clase para generar reportes en PDF
+ *
+ *
+ * @author Jorge
+ * @version 1.0
+ * @since 2025-02-05
+ */
+
+public class PDFGenerator {
         PlayerDAO playerDAO;
 
         public static void generateTeamsReport(List<Team> teams, PlayerDAO playerDAO) {

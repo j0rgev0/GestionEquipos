@@ -8,6 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * La clase {@code PlayerDAO} se encarga de gestionar las operaciones CRUD (crear, leer, actualizar, eliminar)
+ * para los jugadores en la base de datos.
+ *
+ * <p>
+ * Esta clase utiliza una instancia de {@link DatabaseConection} para conectarse a la base de datos y ejecutar las consultas SQL.
+ * </p>
+ */
 public class PlayerDAO {
 
     DatabaseConection conection = new DatabaseConection();
@@ -17,8 +25,15 @@ public class PlayerDAO {
     }
 
 
-
-
+    /**
+     * Crea un nuevo jugador en la base de datos.
+     *
+     * <p>
+     * Este metodo inserta un nuevo registro en la tabla "Jugadores" con el nombre, posición y el ID del equipo del jugador.
+     * </p>
+     *
+     * @param player El objeto {@link Player} que representa al jugador que se desea agregar.
+     */
     public void createPlayer(Player player) {
         String consulta = "Insert into Jugadores Values ((SELECT ISNULL(max(id), 0 )+1 FROM Jugadores),?,?,?)";
 
@@ -36,6 +51,16 @@ public class PlayerDAO {
         }
 
     }
+    /**
+     * Elimina un jugador de la base de datos.
+     *
+     * <p>
+     * Este metodo elimina el jugador con el ID proporcionado de la tabla "Jugadores".
+     * </p>
+     *
+     * @param playerId El ID del jugador que se desea eliminar.
+     * @return {@code true} si el jugador fue eliminado correctamente, {@code false} en caso contrario.
+     */
     public boolean deletePlayer(int playerId) {
         String sql = "DELETE FROM jugadores WHERE id = ?";
 
@@ -51,7 +76,18 @@ public class PlayerDAO {
             return false;
         }
     }
-
+    /**
+     * Busca jugadores según un campo específico y un valor de búsqueda.
+     *
+     * <p>
+     * Este metodo permite buscar jugadores por un campo dado (como nombre, posicion, etc.) que coincidan parcialmente
+     * con el valor de búsqueda proporcionado.
+     * </p>
+     *
+     * @param f El campo por el cual se realiza la búsqueda (por ejemplo, "nombre").
+     * @param n El valor de búsqueda que se busca en el campo indicado.
+     * @return Una lista de objetos {@link Player} que coinciden con la búsqueda.
+     */
     public List<Player> searchPlayer(String f,String n) {
         List<Player> players = new ArrayList<>();
         String sql = "SELECT * FROM jugadores WHERE "+f+" LIKE ?";
@@ -77,7 +113,16 @@ public class PlayerDAO {
         return players;
     }
 
-
+    /**
+     * Obtiene una lista de jugadores pertenecientes a un equipo específico.
+     *
+     * <p>
+     * Este metodo busca todos los jugadores cuyo ID de equipo coincida con el ID proporcionado.
+     * </p>
+     *
+     * @param teamId El ID del equipo cuyos jugadores se desean obtener.
+     * @return Una lista de objetos {@link Player} que pertenecen al equipo con el ID proporcionado.
+     */
     public List<Player> getPlayersByTeam(int teamId) {
         List<Player> players = new ArrayList<>();
         String sql = "SELECT * FROM jugadores WHERE equipo_id = ?";
@@ -104,6 +149,17 @@ public class PlayerDAO {
     }
 
 
+    /**
+     * Actualiza los detalles de un jugador en la base de datos.
+     *
+     * <p>
+     * Este metodo actualiza el nombre, la posición y el ID del equipo de un jugador existente en la tabla "Jugadores".
+     * </p>
+     *
+     * @param player El objeto {@link Player} con los nuevos datos del jugador.
+     * @return {@code true} si el jugador fue actualizado correctamente, {@code false} en caso contrario.
+     */
+
     public boolean updatePlayer(Player player) {
         String sql = "UPDATE jugadores SET nombre = ?, posicion = ?, equipo_id = ? WHERE id = ?";
         try (Connection conn = conection.getConection();
@@ -122,7 +178,15 @@ public class PlayerDAO {
         }
     }
 
-
+    /**
+     * Obtiene una lista de todos los jugadores en la base de datos.
+     *
+     * <p>
+     * Este metodo devuelve una lista de todos los jugadores registrados en la tabla "Jugadores".
+     * </p>
+     *
+     * @return Una lista de objetos {@link Player} que representa a todos los jugadores en la base de datos.
+     */
     public List<Player> PlayerList() {
 
 

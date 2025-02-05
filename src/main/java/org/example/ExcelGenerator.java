@@ -11,8 +11,24 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
+/**
+ * Clase para generar reportes en excel
+ *
+ *
+ * @author Jorge
+ * @version 1.0
+ * @since 2025-02-05
+ */
+
 public class ExcelGenerator {
 
+    /**
+     * Genera un reporte de equipos en formato Excel.
+     *
+     * @param teams Lista de equipos a incluir en el reporte.
+     * @param playerDAO DAO de jugadores utilizado para obtener los jugadores de cada equipo.
+     *
+     */
     public static void generateTeamsReport(List<Team> teams, PlayerDAO playerDAO) {
 
         File directorio = new File("Reports");
@@ -102,7 +118,11 @@ public class ExcelGenerator {
     }
 
     /**
-     * Intenta reemplazar el archivo destino con un archivo temporal, verificando si el archivo está en uso.
+     * Intenta reemplazar el archivo destino con un archivo temporal, verificando si el archivo esta en uso.
+     *
+     * @param tempPath Ruta del archivo temporal.
+     * @param destPath Ruta del archivo destino.
+     * @return true si el archivo se reemplazo correctamente, false si no fue posible.
      */
     private static boolean replaceFile(String tempPath, String destPath) {
         File tempFile = new File(tempPath);
@@ -126,7 +146,10 @@ public class ExcelGenerator {
     }
 
     /**
-     * Verifica si el archivo está en uso intentando abrirlo en modo escritura.
+     * Verifica si el archivo esta en uso intentando abrirlo en modo escritura.
+     *
+     * @param filePath Ruta del archivo a verificar.
+     * @return true si el archivo esta en uso, false si no lo esta.
      */
     private static boolean isFileInUse(String filePath) {
         File file = new File(filePath);
@@ -141,6 +164,12 @@ public class ExcelGenerator {
         }
     }
 
+    /**
+     * Crea el estilo para las celdas de encabezado en el archivo Excel.
+     *
+     * @param workbook El libro de trabajo de Excel.
+     * @return El estilo para las celdas de encabezado.
+     */
     private static CellStyle createHeaderCellStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
         Font font = workbook.createFont();
@@ -158,6 +187,12 @@ public class ExcelGenerator {
         return style;
     }
 
+    /**
+     * Crea el estilo para las celdas de texto en el archivo Excel.
+     *
+     * @param workbook El libro de trabajo de Excel.
+     * @return El estilo para las celdas de texto.
+     */
     private static CellStyle createTextCellStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
         Font font = workbook.createFont();
