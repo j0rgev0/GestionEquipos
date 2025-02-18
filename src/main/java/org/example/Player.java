@@ -22,7 +22,7 @@ public class Player {
      * @param id El identificador único del jugador.
      * @param name El nombre del jugador.
      * @param pos La posición del jugador en el campo.
-     * @param idTeam El identificador del equipo al que pertenece el jugador.
+     * @param idTeam El identificador del equipo al que pertenece el jugador.xxºxº
      */
 
     public Player(int id, String name, String pos, int idTeam) {
